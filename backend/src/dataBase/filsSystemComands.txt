@@ -1,0 +1,231 @@
+O módulo fs (File System) do Node.js oferece uma ampla gama de funções para interagir com o sistema de arquivos, permitindo leitura, escrita, atualização e exclusão de arquivos e diretórios. Aqui estão as principais funções que você deve conhecer para usar bem o fs em Node.js:
+1. Ler Arquivos:
+
+    fs.readFile (assíncrona):
+        Lê o conteúdo de um arquivo. A versão assíncrona é recomendada para operações não bloqueantes.
+        Exemplo:
+
+        javascript
+
+    const fs = require('fs');
+
+    fs.readFile('path/to/file.txt', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log(data);
+    });
+
+fs.readFileSync (síncrona):
+
+    Lê o conteúdo de um arquivo de forma síncrona. A execução do código é bloqueada até que a operação seja concluída.
+    Exemplo:
+
+    javascript
+
+        const fs = require('fs');
+
+        try {
+            const data = fs.readFileSync('path/to/file.txt', 'utf8');
+            console.log(data);
+        } catch (err) {
+            console.error(err);
+        }
+
+2. Escrever em Arquivos:
+
+    fs.writeFile (assíncrona):
+        Escreve dados em um arquivo, substituindo o conteúdo existente. Se o arquivo não existir, ele será criado.
+        Exemplo:
+
+        javascript
+
+    const fs = require('fs');
+
+    fs.writeFile('path/to/file.txt', 'Hello, world!', (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('File has been written');
+    });
+
+fs.writeFileSync (síncrona):
+
+    Escreve dados em um arquivo de forma síncrona.
+    Exemplo:
+
+    javascript
+
+        const fs = require('fs');
+
+        try {
+            fs.writeFileSync('path/to/file.txt', 'Hello, world!');
+            console.log('File has been written');
+        } catch (err) {
+            console.error(err);
+        }
+
+3. Atualizar Arquivos:
+
+    fs.appendFile (assíncrona):
+        Adiciona dados ao final de um arquivo existente.
+        Exemplo:
+
+        javascript
+
+    const fs = require('fs');
+
+    fs.appendFile('path/to/file.txt', 'More data', (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Data has been appended');
+    });
+
+fs.appendFileSync (síncrona):
+
+    Adiciona dados ao final de um arquivo existente de forma síncrona.
+    Exemplo:
+
+    javascript
+
+        const fs = require('fs');
+
+        try {
+            fs.appendFileSync('path/to/file.txt', 'More data');
+            console.log('Data has been appended');
+        } catch (err) {
+            console.error(err);
+        }
+
+4. Excluir Arquivos:
+
+    fs.unlink (assíncrona):
+        Remove um arquivo.
+        Exemplo:
+
+        javascript
+
+    const fs = require('fs');
+
+    fs.unlink('path/to/file.txt', (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('File has been deleted');
+    });
+
+fs.unlinkSync (síncrona):
+
+    Remove um arquivo de forma síncrona.
+    Exemplo:
+
+    javascript
+
+        const fs = require('fs');
+
+        try {
+            fs.unlinkSync('path/to/file.txt');
+            console.log('File has been deleted');
+        } catch (err) {
+            console.error(err);
+        }
+
+5. Manipular Diretórios:
+
+    fs.mkdir e fs.mkdirSync:
+        Criam um novo diretório.
+        Exemplo:
+
+        javascript
+
+    fs.mkdir('path/to/directory', { recursive: true }, (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Directory has been created');
+    });
+
+fs.rmdir e fs.rmdirSync:
+
+    Removem um diretório. A partir do Node.js 12.10.0, a opção { recursive: true } permite remover diretórios não vazios.
+    Exemplo:
+
+    javascript
+
+    fs.rmdir('path/to/directory', { recursive: true }, (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Directory has been removed');
+    });
+
+fs.readdir e fs.readdirSync:
+
+    Leem o conteúdo de um diretório, retornando uma lista de arquivos e subdiretórios.
+    Exemplo:
+
+    javascript
+
+        fs.readdir('path/to/directory', (err, files) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log(files);
+        });
+
+6. Verificar a Existência de Arquivos ou Diretórios:
+
+    fs.access e fs.accessSync:
+        Verificam se um arquivo ou diretório existe e se você tem permissões para acessá-lo.
+        Exemplo:
+
+        javascript
+
+    fs.access('path/to/file.txt', fs.constants.F_OK, (err) => {
+        if (err) {
+            console.error('File does not exist');
+            return;
+        }
+        console.log('File exists');
+    });
+
+fs.existsSync:
+
+    Verifica de forma síncrona se um arquivo ou diretório existe.
+    Exemplo:
+
+    javascript
+
+        const exists = fs.existsSync('path/to/file.txt');
+        console.log(exists ? 'File exists' : 'File does not exist');
+
+7. Obter Informações sobre Arquivos/Diretórios:
+
+    fs.stat e fs.statSync:
+        Obtêm informações sobre um arquivo ou diretório, como tamanho, permissões, e datas de criação/modificação.
+        Exemplo:
+
+        javascript
+
+        fs.stat('path/to/file.txt', (err, stats) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log(`File size: ${stats.size}`);
+        });
+
+Considerações:
+
+    Assíncrono vs. Síncrono: Sempre que possível, prefira as funções assíncronas (fs.readFile, fs.writeFile, etc.) para evitar o bloqueio do loop de eventos do Node.js, especialmente em aplicações que precisam ser altamente responsivas.
+    Manejo de Erros: Sempre trate os erros de forma adequada, pois operações de sistema de arquivos podem falhar por diversas razões (permissões, arquivos inexistentes, etc.).
+
+Estas funções fornecem uma base sólida para trabalhar com o sistema de arquivos no Node.js.
