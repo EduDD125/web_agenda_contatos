@@ -48,3 +48,4 @@ routes.delete("/friend", (req, res) => {
     }
 })
 
+module.exports = routes;
