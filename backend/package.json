@@ -1,0 +1,24 @@
+{
+  "name": "agenda_amigos",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000w\u0000e\u0000b\u0000_\u0000a\u0000g\u0000e\u0000n\u0000d\u0000a\u0000_\u0000c\u0000o\u0000n\u0000t\u0000a\u0000t\u0000o\u0000s\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EduDD125/web_agenda_contatos.git"
+  },
+  "author": "Eduardo Duarte Derisso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EduDD125/web_agenda_contatos/issues"
+  },
+  "homepage": "https://github.com/EduDD125/web_agenda_contatos#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}

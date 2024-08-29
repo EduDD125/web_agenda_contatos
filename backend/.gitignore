@@ -1,0 +1,2 @@
+#ignorar pasta de dependencias do NPM
+node_modules/
