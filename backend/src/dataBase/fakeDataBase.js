@@ -17,13 +17,14 @@ function readFile(path) {
 
 function defineNewId(){
     const data = readAllData();
-    return data.length;
+    return data.length + 1;
 }
 
 function readAllData() {
-    if(fileExist) {
+    if(fileExist()) {
         try{
-            readFile(dbFilePath)
+            return readFile(dbFilePath);
+
         } catch(error) {
             console.log(error);
             throw error;
@@ -37,25 +38,32 @@ function readDatabyId(id) {
     return data.find(record => record.id === id);
 }
 
-function updateData(id, newData) {
+function updateData(id, newName) {
     data = readAllData();
     const index = data.findIndex(record => record.id === id);
-    if (index != -1 ) {
-        data[index] = { ...data[index], ...newData} //operador de espalhamento -> serve para atualizar dados do objeto
+    newPerson = {
+        id: id,
+        name: newName
     }
+
+    data[index] = newPerson;
+    writeFile(data);
 }
+
 function createData(newRecord) {
+    
     const data = readAllData();
+    console.log(data)
     data.push({
         id: defineNewId(),
-        newRecord
+        name: newRecord
     })
     writeFile(data)
 }
 
 function deleteData(id) {
-    const data = readAllData();
-    data.filter(record => record.id !== id);
+    let data = readAllData();
+    data = data.filter(record => record.id !== id);
     writeFile(data);
 }
 
