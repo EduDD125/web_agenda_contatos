@@ -9,6 +9,6 @@ app.use(express.json());
 app.use(corsMiddleware);
 app.use(routes);
 
-app.listen(3000, () => {
-    console.log("conectado na porta padrão 3000");
+app.listen(5000, () => {
+    console.log("conectado na porta padrão 5000");
 })
