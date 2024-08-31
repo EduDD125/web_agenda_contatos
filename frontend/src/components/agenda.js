@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
+import useFetchAllContacts from "../hooks/fetchData/useFetchAllContacts";
 
 export default function Agenda(){
+    const fetchAllContacts = useFetchAllContacts();
     const [contactList, setContactList] = useState([]);
+    const [searchResult, setSearchResult] = useState([]);
 
     useEffect(() => {
-        setContactList(fetchAllContats());
+        async function loadContacts() {
+            const response = await fetchAllContacts();
+            console.log(response);
+            setContactList(response);
+            setSearchResult(contactList)
+        }
+
+        loadContacts();
     }, [])
-    function fetchAllContats() {
-        const contactList = [
-            {
-                id: 1,
-                name: "João"
-            },
-            {
-                id: 2,
-                name: "Cleber"
-            },
-            {
-                id: 3,
-                name: "Tulio"
-            },
-        ]
-        return contactList
-    }
+    
 
 
 
@@ -30,11 +24,11 @@ export default function Agenda(){
         const name = event.target.value;
 
         if(name === "") {
-            setContactList(fetchAllContats());
+            setSearchResult(contactList);
             return;
         }
-        let newContactList = contactList.filter(person => person.name.toLowerCase().includes(name));
-        setContactList(newContactList);
+        let newContactList = contactList.filter(person => person.name.toLowerCase().includes(name.toLowerCase()));
+        setSearchResult(newContactList);
 
     }
 
@@ -45,7 +39,7 @@ export default function Agenda(){
                 <input type="text" onChange={event => searchContacts(event)}/>
             </div>
             <div className="listaContatos">
-                {contactList.map((person, index) =>
+                {searchResult.map((person, index) =>
                     <ul>
                         <li id={index}>{person.name}</li>
                     </ul>
