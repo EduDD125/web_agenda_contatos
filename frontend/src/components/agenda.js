@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import useFetchAllContacts from "../hooks/fetchData/useFetchAllContacts";
+import AddContact from "./addContactComponent/addContact";
+import { FaTrash, FaPencilAlt } from "react-icons/fa";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
 
 export default function Agenda(){
     const fetchAllContacts = useFetchAllContacts();
     const [contactList, setContactList] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
+    const [refreshAgenda, setRefreshAgenda] = useState(true)
+    const [isMouseOn, setIsMouseOn] = useState(-1);
 
     useEffect(() => {
         async function loadContacts() {
             const response = await fetchAllContacts();
-            console.log(response);
             setContactList(response);
-            setSearchResult(contactList)
+            setSearchResult(response);
         }
 
-        loadContacts();
-    }, [])
+        console.log("refreshAgenda ", refreshAgenda);
+        if (refreshAgenda) {
+            loadContacts(searchResult);
+            setRefreshAgenda(false);
+        }
+    }, [refreshAgenda])
     
-
 
 
     function searchContacts(event) {
@@ -37,11 +44,20 @@ export default function Agenda(){
             <div className="inputContainer">
                 <h2>Pesquise por um contato</h2>
                 <input type="text" onChange={event => searchContacts(event)}/>
+                <AddContact onSucess={() => setRefreshAgenda(true)}/>
             </div>
             <div className="listaContatos">
+            <MdCheckBoxOutlineBlank/> 
                 {searchResult.map((person, index) =>
                     <ul>
-                        <li id={index}>{person.name}</li>
+                        <li id={index} 
+                        onMouseEnter={() => setIsMouseOn(index)}
+                        onMouseLeave={() => setIsMouseOn(-1)}> {isMouseOn==index &&
+                             <>
+                                <FaPencilAlt />
+                                <FaTrash />
+                             </>
+                             } {person.name} </li>
                     </ul>
                 )}
             </div>

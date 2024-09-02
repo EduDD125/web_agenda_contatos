@@ -31,6 +31,7 @@ routes.get("/friend", (req, res) => {
 
 routes.post("/friend", (req, res) => {
     const {name} = req.body;
+    console.log(name);
     
     if (!name) return res.status(400).json({message: "Parametros de criação ausentes"});
     try {

@@ -1,9 +1,9 @@
-import { apliClient } from "../../axios/apiClient";
+import { apiClient } from "../../axios/apiClient";
 
 export default function useFetchAllContacts() {
     async function fetchAllContacts() {
         try {
-            const response = await apliClient.get('/friend');
+            const response = await apiClient.get('/friend');
             console.log(response.data);
             return response.data;
         }
