@@ -1,4 +1,4 @@
-import Agenda from "../components/agenda";
+import Agenda from "../components/agenda/agenda.js";
 import Footer from "../components/footer";
 import Header from "../components/header";
 

@@ -1,4 +1,4 @@
-import useSendNewContact from '../../hooks/sendData/useSendNewContact';
+import useSendNewContact from '../../../hooks/sendData/useSendNewContact';
 import './addContactStyle.css'
 
 export default function AddContactModal({setIsOpen, onSucess}) {

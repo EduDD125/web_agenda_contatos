@@ -61,7 +61,10 @@ routes.put("/friend", (req, res) => {
 })
 
 routes.delete("/friend", (req, res) => {
-    const {id} = req.body;
+    const {index} = req.body;
+    const id = index + 1;
+
+    console.log("id: ", id);
     if (!id) return res.status(400).json({message: "Parametros de deleção ausente"});
     if (personNotExists(id)) res.status(400).json({message: `Pessoa inexistente`});
     try {

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import AddContactModal from "./AddContactModalModal";
 
-export default function AddContact({onSucess}) {
-    const [isOpen, setIsOpen] = useState(false);
+export default function AddContact({onSucess, isOpen, setIsOpen}) {
 
     function handleClick() {
         setIsOpen(true);
